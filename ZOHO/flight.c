@@ -70,6 +70,7 @@ third = second + third;
 cn=hn;
 printf("%d**%d",first,second);
 //printf("------------------------------------------------------------------\n");
+	printf("a refers to ticket available b refers to ticket booked");
 printf("|                            BUISNESS                            |\n");
 while(cn->next!=hn)
 {
