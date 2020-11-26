@@ -1,8 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-int first=3, second=2, third=3;
-
+int first, second, third,ro;
 double cost(int row,int seat);
 typedef struct node
 {
@@ -57,20 +56,21 @@ i++;
 }while(i<=first+second+third);
 j++;
 c++;
-}while(j<=10);
+}while(j<=ro);
 }
 
 
 void display()
 {
 node *cn;
-printf("SSS: %d", second);
+//printf("SSS: %d", second);
 second = second + first;
 third = second + third;
 cn=hn;
-printf("%d**%d",first,second);
+//printf("%d**%d",first,second);
 //printf("------------------------------------------------------------------\n");
-	printf("a refers to ticket available b refers to ticket booked");
+printf("\na  =>  ticket AVAILABLE \nb  =>  ticket BOOKED\n");
+printf("\n W-WINDOW                          A-ASILE                              M-MIDDLE\n\n");
 printf("|                            BUISNESS                            |\n");
 while(cn->next!=hn)
 {
@@ -79,11 +79,11 @@ printf("| ");
 //window alisa and middle
 
 if(cn->seat_no==1 || cn->seat_no==third){
-    printf("W");
+    printf("W ");
 }else if(cn->seat_no==first || cn->seat_no-1==second || cn->seat_no==second ||cn->seat_no-1==first ){
-    printf("A");
+    printf("A ");
 }else{
-    printf("M");
+    printf("M ");
 }
 printf("%c",cn->row_no);
 printf("%d", cn->seat_no);
@@ -98,7 +98,7 @@ printf("|\n");
 if(cn->row_no=='D'&&cn->seat_no==third)
 {
 //printf("------------------------------------------------------------------\n");
-printf("|                             ECONOMY                               |\n");
+printf("|                             ECONOMY                                                  |\n");
 }
 
 cn=cn->next;
@@ -114,8 +114,8 @@ else
 printf(" -> b  ");  //red text
 printf("|\n");
 
-printf("------------------------------------------------------------------\n\n");
-printf("BUISNESS-> 150                                        ECONOMY-> 100\n");
+printf("---------------------------------------------------------------------------------------------\n\n");
+printf("BUISNESS-> 1500                                        ECONOMY-> 1000\n");
 }
 
 void display1(node *tmp[20],int n)
@@ -132,9 +132,15 @@ printf("PINS ARE REQUIRED AT THE TIME OF CANCELATION OF SEATS\n");
 printf("------------------------------------------------------------------\n");
 }
 }
+
+
+
+
+//cancel ticket
 void cancle()
 {
-char row,ch;
+char cancel_row='\0';
+int yn,ch;
 int seat,pin;
 node *cn;
 printf("SEAT CANCELATION\n");
@@ -142,120 +148,95 @@ do
 {
 ch='a';
 cn=hn;
-printf("SEAT NUMBRE :");
-scanf("%c %d",&row,&seat);
-printf("PIN :");
+printf("SEAT NUMBER : ");
+scanf("%d",&seat);
+scanf("%c\n", &cancel_row);
+printf("PIN : ");
 scanf("%d",&pin);
-if(row>='A'&&row<='M')
+if(cancel_row>='A'&&cancel_row<='J')
 {
+    
 while(cn->next!=hn)
 {
-if(cn->row_no==row && cn->seat_no==seat && cn->pin==pin)
+    //printf("cn->row_no===%d",cn->row_no);
+//printf("%d",cn->seat_no);
+//printf("%d",pin);
+if(cn->row_no==cancel_row && cn->seat_no==seat && cn->pin==pin)
 {
-printf("Are you sure u want to cancle the Seat (y/n) ");
-char c;
-scanf("%c",&c);
-if(c=='y'||c=='Y')
+printf("Are you sure u want to cancle the Seat (y=1/n=0) ");
+scanf("%d",&yn);
+if(yn==1)
 {
-printf("SEAT CANCELED SUCCESFULLY!\n");
+printf("\n\n!!!!!!!!!!!!!!!!!!!!!!!SEAT CANCELED SUCCESFULLY!!!!!!!!!!!!!!!!!!!!!!!\n");
+printf("Cost of the cancelled tickets will be refunded soon\n\n THANK YOU!!");
 cn->book='a';
 }
+else
+{
+    break;
 }
-else if(cn->row_no==row && cn->seat_no==seat && cn->pin!=pin)
+
+}
+else if(cn->row_no==cancel_row && cn->seat_no==seat && cn->pin!=pin)
 {
 printf("invalid SEAT NUMBER && PIN combination!!!!\n");
+}
+else if(cn->row_no!=cancel_row && cn->seat_no==seat && cn->pin==pin)
+{
+printf("invalid ROW NUMBER!!!!\n");
+}
+else if(cn->row_no==cancel_row && cn->seat_no!=seat && cn->pin==pin)
+{
+printf("invalid SEAT NUMBER!!!!\n");
 }
 cn=cn->next;
-}
-if(cn->row_no==row && cn->seat_no==seat && cn->pin==pin)
-{
-printf("Are you sure u want to cancle (y/n) ");
-char c;
-scanf("%c",&c);
-if(c=='y'||c=='Y')
-{
-printf("SEAT CANCELED SUCCESFULLY!\n");
-cn->book='a';
-}
-}
-else if(cn->row_no==row && cn->seat_no==seat && cn->pin!=pin)
-{
-printf("invalid SEAT NUMBER && PIN combination!!!!\n");
 }
 }
 else
 {
-while(cn->next!=hn)
-{
-if(cn->row_no==row && cn->seat_no==seat && cn->pin==pin)
-{
-printf("Are you sure u want to cancle the Seat (y/n) ");
-char c;
-scanf("%c",&c);
-if(c=='y'||c=='Y')
-{
-printf("SEAT CANCELED SUCCESFULLY!\n");
-cn->book='a';
-}
-}
-else if(cn->row_no==row && cn->seat_no==seat && cn->pin!=pin)
-{
-printf("invalid SEAT NUMBER && PIN combination!!!!\n");
-}
-cn=cn->next;
-}
-if(cn->row_no==row && cn->seat_no==seat && cn->pin==pin)
-{
-printf("Are you sure u want to cancle (y/n) ");
-char c;
-scanf("%c",&c);
-if(c=='y'||c=='Y')
-{
-printf("SEAT CANCELED SUCCESFULLY!\n");
-cn->book='a';
-}
-}
-else if(cn->row_no==row && cn->seat_no==seat && cn->pin!=pin)
-{
-printf("invalid SEAT NUMBER && PIN combination!!!!\n");
-}
+    printf("invalid SEAT NUMBER!!!!\n");
 }
 printf("\n\nPRESS 1 To Check Seat Status\n"); 
 printf("PRESS 2 To Cancle More Tickets\n");
 printf("PRESS 3 To Exit CANCELATION PORTAL\n");
 printf("\ninput: ");
-scanf("%c",&ch);
+scanf("%d",&ch);
 if(ch==1)
 display();
-}while(ch=='2');
+}while(ch==2);
 }
+
+
+
+
+
 void book_seat()
 {
+    char end_row = ro + 64;
 node *cn,*temp[20];
 int n,z,flag;
 char roww;
-int seat;
-char ch;
+int seat,opt;
 do
 {
 z=1;
 printf("\nEnter No Of Tickets u Want To Buy: ");
 scanf("%d",&n);
 
-printf("\nEnter Seat Number(s) in the format of Row name followed by seat number (eg.A1): \n");
+printf("\nEnter Seat Number(s) in the format of seat number followed by Row name (eg.1A): \n");
 double price=0;
 for(int i=1;i<=n;i++)
 {
 printf("NO=%d ",i); 
 scanf("%d",&seat);
 scanf("%c", &roww);
-printf("row: %c, seat: %d\n", roww, seat);
-//2printf("fn call %d",cost(roww,seat));
+printf("row: %c\nseat: %d\n\n\n", roww, seat);
+
 price=price+cost(roww,seat);
 cn=hn;
-if(roww>='A'&&roww<='E')
+if(roww>='A'&& roww<= end_row)
 {
-//printf("Entering\n");
+
 while(cn->next!=hn)
 {
 if(cn->row_no==roww && cn->seat_no==seat)
@@ -290,7 +271,7 @@ printf("%c %d Seat is alredy reserved\n",cn->row_no,cn->seat_no);
 }
 }
 }
-else //
+else 
 {
 while(cn->prev!=hn)
 {
@@ -326,7 +307,8 @@ printf("%c %d Seat is alredy reserved\n",cn->row_no,cn->seat_no);
 }
 }
 
-}
+
+
 
 printf("\nprice of the seat is %lf\n",price);
 display1(temp,z);
@@ -334,22 +316,27 @@ printf("\n\nPRESS 1 To check Seat Status\n");
 printf("PRESS 2 To book other seat\n");
 printf("PRESS 3 To Exit BOOKING PORTAL\n");
 printf("\ninput: ");
-scanf("%c",&ch);
-if(ch==1)
+scanf("%d",&opt);
+if(opt==1)
 display();
-}while(ch=='2');
 }
+}while(opt==2);
+}
+
+
+
+
 
 
 
 double cost(int row,int seat)
 {
     int food;
-    printf("For food press 1 else press 0");
+    printf("For food press 1 else press 0  :  ");
     scanf("%d",&food);
     double price=0,final=0;
     
-      printf("%d %c\n",seat,row);
+      printf("%d \n%c\n",seat,row);
       if((seat%7!=4) && (row>='A' && row<='C'))
       {
           printf("1");
@@ -393,17 +380,16 @@ FILE *fptr;
        // Program exits if the file pointer returns NULL.
        exit(1);
    }
-
-    fscanf(fptr,"Business { %d ,", &first);
-    fscanf(fptr,"%d ,", &second);
-    fscanf(fptr,"%d ", &third);
-   printf("Value of n=%d %d %d ", first,second,third);
+int bfirst,bsecond,bthird,bro;
+    fscanf(fptr,"Total: { %d ,", &first); 
+    fscanf(fptr,"%d , ", &second);
+    fscanf(fptr,"%d }", &third);
+    fscanf(fptr," => %d", &ro);
    fclose(fptr);
 
-int ch;
-char c;
+int ch,c;
 printf("\n\n\n");
-printf("***************FLIGHT TICKET BOOKING SYSTEM*********************");
+printf("                                  FLIGHT TICKET BOOKING SYSTEM                               ");
 
 create();
 display();
@@ -430,11 +416,11 @@ break;
 if(ch!=3)
 {
 printf("\n\nPRESS 1 To Main Menu\n");
-printf("PRESS 2 To Exit CINEMAX PORTAL\n");
+printf("PRESS 2 To Exit \n");
 printf("\ninput: ");
 scanf("%d",&ch);
 }
-}while(c=='1');
+}while(ch==1);
 printf("\n\n\n");
 return 0;
 
