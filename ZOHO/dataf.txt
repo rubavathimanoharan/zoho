@@ -1,2 +1,3 @@
-Business: { 2 , 3 , 2 } 
-Economy: { 2 , 3 , 2 } 
+Total: { 2 , 3 , 2 } => 10
+Business: { 2 , 3 , 2 } ==> 4  
+Economy: { 2 , 3 , 2 } =>6
