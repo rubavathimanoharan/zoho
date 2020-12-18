@@ -1,13 +1,10 @@
 # FLIGHT TICKET BOOOKING SYSTEM  <br /><br /><br />
 
-## Why Doubly Circular Linked list?<br />
-Due to the fact that a circular doubly linked list contains three parts in its structure(i.e. Data,next pointer,previous pointer).<br />
-Consecutive elements are linked or connected by previous and next pointer and the last node points to first node by next pointer and also the first node points to last node by previous pointer.<br />
-However, a circular doubly linked list provides easy manipulation of the pointers and the searching becomes twice as efficient.<br />
-if our head pointer points to the seat number ‘A1’ & user want to perform some operation with seat number ‘J1’ then it will be very
-much time consuming task ,as we need to traverse whole linked list from A1 to J7.<br />
-When we use Doubly circular Linked List all seats are connected in a ring fashion so we can
-directly move from seat A1 to J7 using previous pointer as in previous pointer of head node address of seat J7 is stored.<br /><br />
+## Why singly Linked list?<br />
+Due to the fact that a  linked list contains two parts in its structure(i.e. Data,next pointer).<br />
+Consecutive elements are linked or connected next pointer and the last node points to first node by next pointer and also the first node points to last node by previous pointer.<br />
+However, a linked list provides easy manipulation of the pointers and the searching becomes easy.<br />
+if our head pointer points to the seat number ‘A1’ & user want to perform some operation with seat number ‘J1’ then it will be very easy with linked list<br />
 
 ## Why dynamic memory allocation?<br />
 We do not know how much amount of memory would be needed for the program beforehand.<br />
